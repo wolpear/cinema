@@ -1,0 +1,17 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:8.0
+    ports:
+    - 3306:3306
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: cinema_db
+      MYSQL_USER: cinema
+      MYSQL_PASSWORD: cinema_pass
+volumes:
+  db_data: { }
