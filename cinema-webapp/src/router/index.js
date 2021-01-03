@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Register from '@/components/Register';
 import Home from '@/components/Home';
+import Login from '@/components/Login';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/register-form',
     name: 'Register form',
     component: Register,
+  },
+  {
+    path: '/login',
+    name: 'Login form',
+    component: Login,
   },
 ];
 

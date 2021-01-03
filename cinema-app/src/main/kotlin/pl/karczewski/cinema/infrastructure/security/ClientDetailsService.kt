@@ -26,9 +26,9 @@ data class ClientDetails(
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
         mutableListOf(SimpleGrantedAuthority("USER"))
 
-    override fun getPassword(): String = client.password
+    override fun getPassword(): String = client.password!!
 
-    override fun getUsername(): String = client.email
+    override fun getUsername(): String = client.email!!
 
     override fun isAccountNonExpired(): Boolean = true
 

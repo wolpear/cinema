@@ -9,12 +9,27 @@ class Client(
     @GeneratedValue
     var id: Long? = null,
     @Column(nullable = false, unique = false)
-    var firstName: String,
+    var firstName: String?,
     @Column(nullable = false, unique = false)
-    var lastName: String,
+    var lastName: String?,
     @Column(nullable = false, unique = true)
-    var email: String,
+    var email: String?,
     @Column(nullable = false, unique = false)
     @JsonIgnore
-    var password: String,
+    var password: String?,
 )
+
+data class ClientCredentials(
+    val email: String,
+    val password: String
+) {
+    fun toClient(): Client {
+        return Client(
+            null,
+            null,
+            null,
+            email,
+            password
+        )
+    }
+}
