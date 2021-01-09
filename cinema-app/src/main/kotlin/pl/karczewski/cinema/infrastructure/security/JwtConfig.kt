@@ -5,37 +5,27 @@ import com.auth0.jwt.algorithms.Algorithm
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import pl.karczewski.cinema.domain.client.Client
-import java.io.IOException
-import java.lang.RuntimeException
-import java.util.*
-import javax.servlet.FilterChain
-import javax.servlet.http.HttpServletRequest
-import javax.servlet.http.HttpServletResponse
-
 import org.springframework.security.core.context.SecurityContextHolder
-
-import javax.servlet.ServletException
-
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
-import javax.servlet.http.Cookie
-
 import org.springframework.web.util.WebUtils.getCookie
 import pl.karczewski.cinema.common.Mapper
-import pl.karczewski.cinema.domain.client.ClientCredentials
-
-
+import java.io.IOException
+import java.util.Date
+import javax.servlet.FilterChain
+import javax.servlet.ServletException
+import javax.servlet.http.Cookie
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 object SecurityConstants {
     const val SECRET = "SecretKeyToGenJWTs"
     const val EXPIRATION_TIME: Long = 864_000_000 // 10 days
-    const val TOKEN_PREFIX = "Bearer "
     const val COOKIE_NAME = "access_token"
     const val SIGN_UP_URL = "/login"
 }
 
-class JWTAuthenticationFilter(authenticationManager: AuthenticationManager): UsernamePasswordAuthenticationFilter(authenticationManager) {
+class JWTAuthenticationFilter(authenticationManager: AuthenticationManager) : UsernamePasswordAuthenticationFilter(authenticationManager) {
 
     override fun attemptAuthentication(request: HttpServletRequest?, response: HttpServletResponse?): Authentication {
         try {
@@ -78,7 +68,7 @@ class JWTAuthorizationFilter(authManager: AuthenticationManager?) : BasicAuthent
         chain: FilterChain
     ) {
         val cookie = getCookie(req, SecurityConstants.COOKIE_NAME)
-        if (cookie != null && cookie.value?.startsWith(SecurityConstants.TOKEN_PREFIX)!!) {
+        if (cookie != null) {
             chain.doFilter(req, res)
             return
         }
@@ -100,3 +90,8 @@ class JWTAuthorizationFilter(authManager: AuthenticationManager?) : BasicAuthent
         return null
     }
 }
+
+data class ClientCredentials(
+    val email: String,
+    val password: String
+)

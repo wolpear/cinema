@@ -9,6 +9,7 @@ plugins {
     kotlin("plugin.noarg") version "1.4.10"
     kotlin("plugin.allopen") version "1.4.10"
     kotlin("plugin.jpa") version "1.4.10"
+    kotlin("plugin.serialization") version "1.4.10"
 }
 
 group = "pl.karczewski"
@@ -17,6 +18,7 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -32,6 +34,7 @@ dependencies {
     implementation("io.springfox:springfox-boot-starter:3.0.0")
     implementation("io.springfox:springfox-swagger-ui:3.0.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.0")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")

@@ -3,7 +3,7 @@
     <v-navigation-drawer app v-model="sideNav">
       <v-list>
         <v-list-item
-          v-for="item in menuItems"
+          v-for="item in filteredMenuItems"
           :key="item.title"
           :to="item.link"
         >
@@ -23,8 +23,11 @@
       <v-spacer></v-spacer>
       <v-row v-if="username()">
         <v-list-item-content  style="text-align: right">
-          <v-list-item-title class="font-weight-bold">
-            {{ username() }}
+          <v-list-item-title >
+            Witaj,
+            <span class="font-weight-bold">
+              {{ username() }}
+            </span>
           </v-list-item-title>
           <v-list-item-subtitle>
             <a @click="logout">Logout</a>
@@ -53,10 +56,19 @@ export default {
     return {
       sideNav: false,
       menuItems: [
-        { icon: 'mdi-home', title: 'Main page', link: '/' },
-        { icon: 'mdi-account-plus', title: 'Register', link: '/register-form' },
+        {
+          icon: 'mdi-home', title: 'Main page', link: '/', show: true,
+        },
+        {
+          icon: 'mdi-account-plus', title: 'Register', link: '/register-form', show: !this.username(),
+        },
       ],
     };
+  },
+  computed: {
+    filteredMenuItems() {
+      return this.menuItems.filter((it) => it.show);
+    },
   },
   methods: {
     logout() {

@@ -1,24 +1,26 @@
-package pl.karczewski.cinema.domain.client
+package pl.karczewski.cinema.domain.movie
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.Lob
 
 @Entity
-data class Client(
+data class Movie(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-    @Column(nullable = false, unique = false)
-    var firstName: String?,
-    @Column(nullable = false, unique = false)
-    var lastName: String?,
     @Column(nullable = false, unique = true)
-    var email: String?,
+    var title: String?,
     @Column(nullable = false, unique = false)
-    @JsonIgnore
-    var password: String?,
+    var genre: String?,
+    @Column(nullable = false, unique = false)
+    var voteAverage: Float?,
+    @Column(nullable = false, unique = false)
+    var posterPath: String?,
+    @Lob
+    @Column(nullable = false, unique = false)
+    var overview: String?,
 )

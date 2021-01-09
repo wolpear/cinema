@@ -25,11 +25,11 @@ class SecurityConfig(
 
     override fun configure(http: HttpSecurity?) {
         http
-            ?.cors()?.and()?.csrf()?.disable()
+            ?.csrf()?.disable()
             ?.authorizeRequests()
             ?.antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL)?.permitAll()
-            ?.antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL)?.permitAll()
             ?.antMatchers(HttpMethod.POST, "/api/v1/clients")?.permitAll()
+            ?.antMatchers(HttpMethod.GET, "/api/v1/movies")?.permitAll()
             ?.anyRequest()?.authenticated()
             ?.and()
             ?.addFilter(JWTAuthenticationFilter(authenticationManager()))

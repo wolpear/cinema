@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 class SwaggerConfig {
     @Bean
     fun api(): Docket {
-        return Docket(DocumentationType.SWAGGER_2)
+        return Docket(DocumentationType.OAS_30)
             .select()
             .apis(RequestHandlerSelectors.any())
             .paths(PathSelectors.any())
