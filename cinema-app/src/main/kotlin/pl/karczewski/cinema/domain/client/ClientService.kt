@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import pl.karczewski.cinema.common.InformationResponseBody
 
 @Service
-class ClientService(val repository: ClientRepository, val passwordEncoder: PasswordEncoder) {
-
+class ClientService(
+    private val repository: ClientRepository,
+    private val passwordEncoder: PasswordEncoder
+) {
     fun createClient(clientBody: ClientBody): InformationResponseBody {
         val client = clientBody.toClient(passwordEncoder)
         try {
@@ -18,6 +20,14 @@ class ClientService(val repository: ClientRepository, val passwordEncoder: Passw
         } catch (e: DataIntegrityViolationException) {
             throw UserWithEmailExistsException("User with e-mail ${client.email} already exists!")
         }
+    }
+
+    fun fetchClient(clientId: Long): Client {
+        return repository.findById(clientId).get()
+    }
+
+    fun fetchClient(email: String): Client {
+        return repository.findByEmail(email)!!
     }
 }
 

@@ -8,7 +8,7 @@ import pl.karczewski.cinema.domain.reservation.MovieProjectionDto
 
 @RestController
 @RequestMapping("/api/v1/movies")
-class MovieController(val service: MovieService) {
+class MovieController(private val service: MovieService) {
     @GetMapping()
     fun allMovies(): MoviesDto {
         return MoviesDto(service.fetchAllMoviesDto())

@@ -4,6 +4,7 @@ import Register from '@/components/Register';
 import Home from '@/components/Home';
 import Login from '@/components/Login';
 import ProjectionsList from '@/components/MovieProjections';
+import MovieReservation from '@/components/MovieReservation';
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,12 @@ const routes = [
     path: '/movie-projections/:movieId',
     name: 'Movie projections list',
     component: ProjectionsList,
+    props: true,
+  },
+  {
+    path: '/movie-reservation/:projectionId',
+    name: 'Movie reservation',
+    component: MovieReservation,
     props: true,
   },
 ];

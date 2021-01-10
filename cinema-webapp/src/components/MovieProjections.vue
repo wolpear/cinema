@@ -34,13 +34,17 @@
                   </thead>
                   <tbody>
                     <tr v-for="projection in projections" :key="projection.id">
-                      <td>{{new Date(projection.datetime).toLocaleString("en-UK")}}</td>
+                      <td>{{new Date(projection.datetime).toLocaleString(dateRegion)}}</td>
                       <td>
                         {{ projection.freeSeats }} of
                         {{ projection.hall.numColumns * projection.hall.numRows }}
                       </td>
                       <td>
-                        <v-btn small :disabled="projection.freeSeats === 0">
+                        <v-btn
+                            small
+                            :disabled="projection.freeSeats === 0"
+                            :to="`/movie-reservation/${projection.id}`"
+                        >
                           Reserve
                         </v-btn>
                       </td>
@@ -58,6 +62,7 @@
 
 <script>
 import http from '@/common/http';
+import dateRegion from '@/common/formats';
 
 export default {
   name: 'MovieProjections',
@@ -65,7 +70,7 @@ export default {
     movieId: String,
   },
   data: () => ({
-    dateFormatter: new Intl.DateTimeFormat('pl'),
+    dateRegion,
     projections: [],
     movie: {},
   }),

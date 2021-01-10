@@ -9,8 +9,8 @@ import pl.karczewski.cinema.domain.reservation.MovieProjectionDto
 
 @Service
 class MovieService(
-    val repository: MovieRepository,
-    val configuration: MovieConfiguration
+    private val repository: MovieRepository,
+    private val configuration: MovieConfiguration
 ) {
     val categoryCacheMap = loadCategoriesFromMovieDBToLocalMapCache()
 

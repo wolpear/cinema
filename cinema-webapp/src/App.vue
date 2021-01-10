@@ -24,7 +24,7 @@
       <v-row v-if="username()">
         <v-list-item-content  style="text-align: right">
           <v-list-item-title >
-            Witaj,
+            Greetings,
             <span class="font-weight-bold">
               {{ username() }}
             </span>

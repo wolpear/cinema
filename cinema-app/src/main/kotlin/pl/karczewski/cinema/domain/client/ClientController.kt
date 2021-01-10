@@ -9,7 +9,7 @@ import pl.karczewski.cinema.common.InformationResponseBody
 
 @RestController
 @RequestMapping("/api/v1/clients")
-class ClientController(val clientService: ClientService) {
+class ClientController(private val clientService: ClientService) {
     @PostMapping
     fun createClient(@RequestBody clientBody: ClientBody): InformationResponseBody {
         return clientService.createClient(clientBody)

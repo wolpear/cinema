@@ -30,11 +30,24 @@ private class CommandLineAppStartUp(
             )
         )
 
+        clientService.createClient(
+            ClientBody(
+                firstName = "Adam",
+                lastName = "Testowy",
+                email = "adam@wp.pl",
+                plaintextPassword = "adam"
+            )
+        )
+
         val hall = hallService.createHall(hallName = "A", numRows = 8, numColumns = 12)
         reservationService.createProjection(
             movie = movieService.fetchAllMovies()[0],
             hall = hall,
             datetime = LocalDateTime.of(2021, Month.JANUARY, 20, 14, 20)
         )
+
+        for (seatId in 30..34) {
+            reservationService.reserveSeat(seatId = seatId.toLong(), clientService.fetchClient(2))
+        }
     }
 }

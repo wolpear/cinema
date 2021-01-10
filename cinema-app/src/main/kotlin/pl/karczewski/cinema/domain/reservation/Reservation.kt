@@ -1,8 +1,5 @@
 package pl.karczewski.cinema.domain.reservation
 
-import com.fasterxml.jackson.annotation.JsonBackReference
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonManagedReference
 import pl.karczewski.cinema.domain.client.Client
 import pl.karczewski.cinema.domain.hall.Hall
 import pl.karczewski.cinema.domain.movie.Movie
@@ -27,10 +24,8 @@ class MovieProjection(
     @ManyToOne
     var hall: Hall?,
     @ManyToOne
-    @JsonBackReference
     var movie: Movie?,
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "projection")
-    @JsonManagedReference
     var seats: MutableList<SeatReservation>?
 ) {
     fun toProjectionDto(): MovieProjectionDto {
@@ -53,14 +48,21 @@ data class SeatReservation(
     @Column(nullable = false, unique = false)
     var numCol: Int?,
     @ManyToOne(optional = true)
-    @JsonIgnore
     var client: Client?,
     @ManyToOne(optional = false)
-    @JsonBackReference
     var projection: MovieProjection?
 ) {
     val taken: Boolean
         get() = client != null
+
+    fun toSeatReservationDto(): SeatReservationDto {
+        return SeatReservationDto(
+            id = id!!,
+            numRow = numRow!!,
+            numCol = numCol!!,
+            taken = taken
+        )
+    }
 }
 
 data class MovieProjectionDto(
@@ -68,4 +70,11 @@ data class MovieProjectionDto(
     val datetime: LocalDateTime,
     val hall: Hall,
     val freeSeats: Int
+)
+
+data class SeatReservationDto(
+    val id: Long,
+    val numRow: Int,
+    val numCol: Int,
+    val taken: Boolean
 )

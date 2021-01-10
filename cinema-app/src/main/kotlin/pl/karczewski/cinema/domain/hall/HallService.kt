@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class HallService(
-    val hallRepository: HallRepository,
+    private val hallRepository: HallRepository,
 ) {
     fun createHall(hallName: String, numRows: Int, numColumns: Int): Hall {
         val hall = Hall(

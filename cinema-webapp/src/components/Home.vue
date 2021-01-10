@@ -36,7 +36,7 @@
             </v-row>
             <v-row class="mt-5 mb-0 mx-auto">
               <v-btn
-                :to="'/movie-projections/'+movie.id"
+                :to="`/movie-projections/${movie.id}`"
                 :disabled="!movie.availableProjections || !userLoggedIn"
                 small
                 bottom
