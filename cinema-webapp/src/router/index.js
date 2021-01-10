@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Register from '@/components/Register';
 import Home from '@/components/Home';
 import Login from '@/components/Login';
+import ProjectionsList from '@/components/MovieProjections';
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,12 @@ const routes = [
     path: '/login',
     name: 'Login form',
     component: Login,
+  },
+  {
+    path: '/movie-projections/:movieId',
+    name: 'Movie projections list',
+    component: ProjectionsList,
+    props: true,
   },
 ];
 

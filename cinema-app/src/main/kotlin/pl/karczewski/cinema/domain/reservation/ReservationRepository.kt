@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface MovieProjectionRepository: CrudRepository<MovieProjection, Long>
+interface MovieProjectionRepository : CrudRepository<MovieProjection, Long>
 
 @Repository
-interface SeatReservationRepository: CrudRepository<SeatReservation, Long>
+interface SeatReservationRepository : CrudRepository<SeatReservation, Long>

@@ -1,4 +1,4 @@
 # Cinema system project
 Basic system for cinemas. 
 
-[Swagger - localhost](http://localhost:9000/swagger-ui/#/)
+[Swagger - localhost (requires to be logged in)](http://localhost:9000/swagger-ui/#/)

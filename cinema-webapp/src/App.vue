@@ -47,9 +47,7 @@
 </template>
 
 <script>
-// eslint-disable-next-line camelcase
-import jwt_decode from 'jwt-decode';
-import Cookies from 'js-cookie';
+import Cookie from '@/common/security';
 
 export default {
   data() {
@@ -72,14 +70,11 @@ export default {
   },
   methods: {
     logout() {
-      Cookies.remove('access_token');
+      Cookie.removeLoginCookie();
       window.location.reload();
     },
     username() {
-      const cookieToDecode = Cookies.get('access_token');
-      if (!cookieToDecode) { return null; }
-      const decodedCookie = jwt_decode(cookieToDecode);
-      return decodedCookie.name;
+      return Cookie.getLogin();
     },
   },
 };

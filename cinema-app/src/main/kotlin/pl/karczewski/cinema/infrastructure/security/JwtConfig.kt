@@ -68,7 +68,7 @@ class JWTAuthorizationFilter(authManager: AuthenticationManager?) : BasicAuthent
         chain: FilterChain
     ) {
         val cookie = getCookie(req, SecurityConstants.COOKIE_NAME)
-        if (cookie != null) {
+        if (cookie == null) {
             chain.doFilter(req, res)
             return
         }

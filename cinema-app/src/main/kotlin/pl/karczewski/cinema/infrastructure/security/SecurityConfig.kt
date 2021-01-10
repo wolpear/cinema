@@ -27,9 +27,9 @@ class SecurityConfig(
         http
             ?.csrf()?.disable()
             ?.authorizeRequests()
-            ?.antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL)?.permitAll()
-            ?.antMatchers(HttpMethod.POST, "/api/v1/clients")?.permitAll()
-            ?.antMatchers(HttpMethod.GET, "/api/v1/movies")?.permitAll()
+            ?.mvcMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL)?.permitAll()
+            ?.mvcMatchers(HttpMethod.POST, "/api/v1/clients")?.permitAll()
+            ?.mvcMatchers(HttpMethod.GET, "/api/v1/movies")?.permitAll()
             ?.anyRequest()?.authenticated()
             ?.and()
             ?.addFilter(JWTAuthenticationFilter(authenticationManager()))

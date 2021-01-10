@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service
 class HallService(
     val hallRepository: HallRepository,
 ) {
-    fun createHall(hallName: String, numRows: Int, numColumns: Int) {
+    fun createHall(hallName: String, numRows: Int, numColumns: Int): Hall {
         val hall = Hall(
             id = null,
             name = hallName,
@@ -14,5 +14,6 @@ class HallService(
             numColumns = numColumns
         )
         hallRepository.save(hall)
+        return hall
     }
 }

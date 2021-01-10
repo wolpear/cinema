@@ -5,6 +5,7 @@ import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
+import pl.karczewski.cinema.domain.reservation.MovieProjectionDto
 
 @Service
 class MovieService(
@@ -47,7 +48,21 @@ class MovieService(
     }
 
     fun fetchAllMovies(): List<Movie> {
-        return repository.findAll().toList()
+        val movies = repository.findAll().toList()
+        return movies
+    }
+
+    fun fetchAllMoviesDto(): List<MovieDto> {
+        return repository.findAll().map { it.toMovieDto() }
+    }
+
+    fun fetchMovieProjections(movieId: Long): List<MovieProjectionDto> {
+        val movie = repository.findById(movieId).get()
+        return movie.projections?.map { it.toProjectionDto() }!!
+    }
+
+    fun fetchMovieDto(movieId: Long): MovieDto {
+        return repository.findById(movieId).get().toMovieDto()
     }
 
     companion object {

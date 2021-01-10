@@ -34,6 +34,17 @@
             <v-row class="mt-5 mx-auto">
               {{ movie.overview }}
             </v-row>
+            <v-row class="mt-5 mb-0 mx-auto">
+              <v-btn
+                :to="'/movie-projections/'+movie.id"
+                :disabled="!movie.availableProjections || !userLoggedIn"
+                small
+                bottom
+                right
+              >
+                {{ projectionBtnText(movie) }}
+              </v-btn>
+            </v-row>
           </v-card-text>
         </v-card>
       </v-col>
@@ -43,6 +54,7 @@
 
 <script>
 import http from '@/common/http';
+import Cookie from '@/common/security';
 
 export default {
   name: 'Home',
@@ -56,13 +68,17 @@ export default {
   methods: {
     loadMovies() {
       http.get('/api/v1/movies').then((response) => {
-        this.movies = response.data;
+        this.movies = response.data.movies;
       });
     },
-    readMoreClicked(movie) {
-      // eslint-disable-next-line no-param-reassign
-      movie.readMoreActive = !movie.readMoreActive;
+    projectionBtnText(movie) {
+      if (!movie.availableProjections) { return 'All reserved'; }
+      if (!this.userLoggedIn) { return 'Login to reserve'; }
+      return 'Book it!';
     },
+  },
+  computed: {
+    userLoggedIn: () => Cookie.checkIfUserLoggedIn(),
   },
 };
 </script>

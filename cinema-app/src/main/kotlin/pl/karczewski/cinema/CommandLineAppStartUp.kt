@@ -6,12 +6,16 @@ import pl.karczewski.cinema.domain.client.ClientBody
 import pl.karczewski.cinema.domain.client.ClientService
 import pl.karczewski.cinema.domain.hall.HallService
 import pl.karczewski.cinema.domain.movie.MovieService
+import pl.karczewski.cinema.domain.reservation.ReservationService
+import java.time.LocalDateTime
+import java.time.Month
 
 @Component
-class CommandLineAppStartUp(
+private class CommandLineAppStartUp(
     val clientService: ClientService,
     val movieService: MovieService,
     val hallService: HallService,
+    val reservationService: ReservationService
 ) : CommandLineRunner {
 
     override fun run(vararg args: String?) {
@@ -26,6 +30,11 @@ class CommandLineAppStartUp(
             )
         )
 
-        hallService.createHall(hallName = "A", numRows = 8, numColumns = 12)
+        val hall = hallService.createHall(hallName = "A", numRows = 8, numColumns = 12)
+        reservationService.createProjection(
+            movie = movieService.fetchAllMovies()[0],
+            hall = hall,
+            datetime = LocalDateTime.of(2021, Month.JANUARY, 20, 14, 20)
+        )
     }
 }
