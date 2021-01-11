@@ -50,8 +50,8 @@
 </template>
 
 <script>
-
 import http from '@/common/http';
+import { eventBus, EVENT_LOGGED_IN } from '@/common/eventBus';
 
 export default {
   name: 'Register',
@@ -73,6 +73,7 @@ export default {
         password: this.form.password,
       }).then(() => {
         this.$router.push({ name: 'Home' });
+        eventBus.$emit(EVENT_LOGGED_IN);
       }).catch((err) => {
         if (err.response.status === 403) {
           this.error = 'Bad e-mail or password!';

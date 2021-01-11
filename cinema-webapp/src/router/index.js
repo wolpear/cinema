@@ -5,6 +5,7 @@ import Home from '@/components/Home';
 import Login from '@/components/Login';
 import ProjectionsList from '@/components/MovieProjections';
 import MovieReservation from '@/components/MovieReservation';
+import MovieReservations from '@/components/MovieReservations';
 
 Vue.use(VueRouter);
 
@@ -35,6 +36,11 @@ const routes = [
     name: 'Movie reservation',
     component: MovieReservation,
     props: true,
+  },
+  {
+    path: '/my-reservations',
+    name: 'Client reservations',
+    component: MovieReservations,
   },
 ];
 

@@ -13,13 +13,18 @@ import java.security.Principal
 @RequestMapping("/api/v1")
 class ReservationController(private val service: ReservationService) {
     @GetMapping("/projection/{projectionId}/seats")
-    fun projectionSeats(@PathVariable projectionId: String): ProjectionSeatsDto {
+    private fun projectionSeats(@PathVariable projectionId: String): ProjectionSeatsDto {
         return service.getProjectionData(projectionId = projectionId.toLong())
     }
 
     @PostMapping("/seats")
     private fun reserveSeats(@RequestBody body: ReserveSeatsDto, principal: Principal): InformationResponseBody {
         return service.reserveSeats(body, principal)
+    }
+
+    @GetMapping("/reservations")
+    private fun clientReservations(principal: Principal): ClientProjectionsDto {
+        return service.clientReservations(principal)
     }
 }
 

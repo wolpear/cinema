@@ -46,6 +46,18 @@ private class CommandLineAppStartUp(
             datetime = LocalDateTime.of(2021, Month.JANUARY, 20, 14, 20)
         )
 
+        reservationService.createProjection(
+            movie = movieService.fetchAllMovies()[0],
+            hall = hall,
+            datetime = LocalDateTime.of(2021, Month.JANUARY, 20, 21, 30)
+        )
+
+        reservationService.createProjection(
+            movie = movieService.fetchAllMovies()[1],
+            hall = hall,
+            datetime = LocalDateTime.of(2021, Month.JANUARY, 20, 12, 0,0)
+        )
+
         for (seatId in 30..34) {
             reservationService.reserveSeat(seatId = seatId.toLong(), clientService.fetchClient(2))
         }

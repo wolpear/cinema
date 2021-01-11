@@ -17,4 +17,20 @@ data class Hall(
     var numRows: Int?,
     @Column(nullable = false, unique = false)
     var numColumns: Int?,
+) {
+    fun toHallDto(): HallDto {
+        return HallDto(
+            id = id!!,
+            name = name!!,
+            numRows = numRows!!,
+            numColumns = numColumns!!
+        )
+    }
+}
+
+data class HallDto(
+    val id: Long,
+    val name: String,
+    val numRows: Int,
+    val numColumns: Int,
 )

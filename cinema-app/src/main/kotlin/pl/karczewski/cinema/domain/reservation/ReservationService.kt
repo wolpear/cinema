@@ -41,7 +41,7 @@ class ReservationService(
         }
     }
 
-    fun getProjectionData(projectionId: Long): ProjectionSeatsDto {
+    internal fun getProjectionData(projectionId: Long): ProjectionSeatsDto {
         val projection = movieProjectionRepository.findById(projectionId).get()
         val seats = projection.seats!!
         return ProjectionSeatsDto(
@@ -58,7 +58,7 @@ class ReservationService(
     }
 
     @Transactional
-    fun reserveSeats(reserveSeatsDto: ReserveSeatsDto, principal: Principal): InformationResponseBody {
+    internal fun reserveSeats(reserveSeatsDto: ReserveSeatsDto, principal: Principal): InformationResponseBody {
         return try {
             val client = clientService.fetchClient(principal.name)
             val seats = seatReservationRepository.findAllById(reserveSeatsDto.seatIds)
@@ -71,10 +71,27 @@ class ReservationService(
             InformationResponseBody(message = "Error reserving seats!")
         }
     }
+
+    internal fun clientReservations(principal: Principal): ClientProjectionsDto {
+        val client = clientService.fetchClient(principal.name)
+        val projectionSeatsAssociation = client.seatReservations
+            ?.groupBy { it.projection }
+            ?.mapKeys { entry ->
+                entry.key?.toProjectionWithSeatsDto(entry.value.map { it.toSeatReservationDto() })
+            }!!
+
+        return ClientProjectionsDto(
+            projections = projectionSeatsAssociation.keys.map { it!! }
+        )
+    }
 }
 
-data class ProjectionSeatsDto(
+internal data class ProjectionSeatsDto(
     val movie: MovieDto,
     val projection: MovieProjectionDto,
     val seats: List<SeatReservationDto>
+)
+
+internal data class ClientProjectionsDto(
+    val projections: List<MovieProjectionWithSeatsDto>
 )

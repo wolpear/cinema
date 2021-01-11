@@ -2,7 +2,9 @@ package pl.karczewski.cinema.domain.reservation
 
 import pl.karczewski.cinema.domain.client.Client
 import pl.karczewski.cinema.domain.hall.Hall
+import pl.karczewski.cinema.domain.hall.HallDto
 import pl.karczewski.cinema.domain.movie.Movie
+import pl.karczewski.cinema.domain.movie.MovieDto
 import java.time.LocalDateTime
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -32,8 +34,18 @@ class MovieProjection(
         return MovieProjectionDto(
             id = id!!,
             datetime = datetime!!,
-            hall = hall!!,
+            hall = hall?.toHallDto()!!,
             freeSeats = seats?.count { !it.taken }!!
+        )
+    }
+
+    fun toProjectionWithSeatsDto(seats: List<SeatReservationDto>): MovieProjectionWithSeatsDto {
+        return MovieProjectionWithSeatsDto(
+            id = id!!,
+            datetime = datetime!!,
+            movie = movie?.toMovieDto()!!,
+            hall = hall?.toHallDto()!!,
+            seats = seats
         )
     }
 }
@@ -68,8 +80,16 @@ data class SeatReservation(
 data class MovieProjectionDto(
     val id: Long,
     val datetime: LocalDateTime,
-    val hall: Hall,
+    val hall: HallDto,
     val freeSeats: Int
+)
+
+data class MovieProjectionWithSeatsDto(
+    val id: Long,
+    val datetime: LocalDateTime,
+    val hall: HallDto,
+    val movie: MovieDto,
+    val seats: List<SeatReservationDto>
 )
 
 data class SeatReservationDto(
