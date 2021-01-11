@@ -89,6 +89,7 @@ export default {
   methods: {
     logout() {
       Cookie.removeLoginCookie();
+      this.$router.push({ name: 'Home' });
       window.location.reload();
     },
   },

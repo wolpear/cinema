@@ -4,6 +4,7 @@
       <v-col>
         <v-card
             class="mx-auto"
+            max-width="900"
         >
           <v-card>
             <v-card-title>

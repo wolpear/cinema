@@ -4,7 +4,7 @@
       <v-col>
         <v-card
             class="mx-auto"
-            max-width="1000"
+            max-width="900"
         >
           <v-card-title style="word-break: keep-all">
             My reservations
